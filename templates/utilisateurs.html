@@ -1,0 +1,24 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block content %}
+<h1>Liste des utilisateurs</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom d'utilisateur</th>
+            <th>Mot de passe</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for utilisateur in utilisateurs %}
+        <tr>
+            <td>{{ utilisateur.id }}</td>
+            <td>{{ utilisateur.nom_utilisateur }}</td>
+            <td>{{ utilisateur.mot_de_passe }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
