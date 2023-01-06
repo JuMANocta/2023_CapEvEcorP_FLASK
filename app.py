@@ -11,7 +11,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/bootstrap')
-def test():
+def bootstrap():
     return render_template('bootstrap.html')
 
 @app.route('/salut')
@@ -20,16 +20,26 @@ def salut():
 
 @app.route('/salut/<nom>')
 def test_name(nom):
-    #return f'Salut {nom} !'
-    return render_template('salut.html', nom=nom)
+    from datetime import datetime # importation de datetime
+    maintenant = datetime.now() # récupération de la date et de l'heure actuelle
+    jour = maintenant.day # récupération du jour
+    jours_de_la_semaine_fr = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] # création d'une liste des jours de la semaine en français
+    jour_semaine = jours_de_la_semaine_fr[maintenant.weekday()] # récupération du jour de la semaine en français
+    mois = maintenant.month # récupération du mois
+    annee = maintenant.year # récupération de l'année
+    return render_template('salut.html', nom=nom, jour=jour, mois=mois, annee=annee ,jour_semaine=jour_semaine)
 
-@app.roote('/google')
+@app.route('/google')
 def google():
     return redirect('https://google.com')
 
 @app.route('/401')
 def error_401():
     abort(401)
+
+@app.errorhandler(404)
+def error_404(error):
+    return ("404"), 404
 
 @app.route('/json')
 def json():
