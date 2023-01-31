@@ -1,0 +1,36 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Liste des Quizs{% endblock title %}
+{% block content %}
+    <h1>Liste des Quizs</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Réponses 1</th>
+                <th>Réponses 2</th>
+                <th>Réponses 3</th>
+                <th>Réponses 4</th>
+                <th>Correct</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quizzes in quiz %}
+                <tr>
+                    <td>{{ quizzes.question }}</td>
+                    <td>{{ quizzes.reponse_1 }}</td>
+                    <td>{{ quizzes.reponse_2 }}</td>
+                    <td>{{ quizzes.reponse_3 }}</td>
+                    <td>{{ quizzes.reponse_4 }}</td>
+                    <td>{{ quizzes.correct_reponse }}</td>
+                    <td>
+                        <a href="" class="btn btn-primary">Voir</a>
+                        <a href="" class="btn btn-primary">Modifier</a>
+                        <a href="" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('quiz_new') }}" class="btn btn-primary">Créer un nouveau quiz</a>
+{% endblock content %}

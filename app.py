@@ -1,10 +1,16 @@
-from flask import Flask, render_template, redirect, abort, jsonify
+from flask import Flask, render_template, redirect, abort, jsonify, url_for, request
 from flask_bootstrap import Bootstrap
 from models.utilisateur import Utilisateur, db
+from models.quiz import Quiz, db
+from models.quiz_new_form import QuizNewForm
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config.from_pyfile('config.py')
+
 Bootstrap(app)
+db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def index():
@@ -63,9 +69,25 @@ def get_all_utilisateurs():
     utilisateurs = Utilisateur.query.all()
     return f'Utilisateurs {utilisateurs}'
 
-@app.route('/htmlutilisaterus')
+@app.route('/htmlutilisateurs')
 def html_utilisateurs():
     utilisateurs = Utilisateur.query.all()
     return render_template('utilisateurs.html', utilisateurs=utilisateurs)
+
+@app.route('/quiz')
+def quiz():
+    quiz = Quiz.query.all()
+    return render_template('quiz.html', quiz=quiz)
+
+@app.route('/quiz_new', methods=['GET', 'POST'])
+def quiz_new():
+    form = QuizNewForm()
+    if request.method == 'POST':
+        quiz = Quiz()
+        form.populate_obj(quiz)
+        db.session.add(quiz) # Ajout de l'objet dans la session
+        db.session.commit()
+        return redirect(url_for('quiz'))
+    return render_template('quiz_new.html', form=form)
 
 app.run()
