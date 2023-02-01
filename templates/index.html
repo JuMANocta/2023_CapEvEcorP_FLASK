@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
-<body>
-    <h1>Hello World</h1>
-    <p>Voici le contenu de la page index</p>
-</body>
-</html>
+{% extends "bootstrap/base.html" %}
+{% block html_attribs %} lang="fr"{% endblock html_attribs %}
+{% block title %}Index{% endblock title %}
+
+{% block content %}
+<h1>Hello World</h1>
+<p>Voici le contenu de la page index</p>
+<img src="{{ url_for('send_img', path='licorne.jpg') }}" alt="Licorne" class="img-thumbnail"/>
+{% endblock content %}

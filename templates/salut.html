@@ -1,7 +1,7 @@
 {% extends "bootstrap/base.html" %}
-{% block html_attribs %} lang="fr"{% endblock %}
-{% block title %}Salut {{nom}}{% endblock %}
+{% block html_attribs %} lang="fr"{% endblock html_attribs %}
+{% block title %}Salut {{ nom }}{% endblock title %}
 
 {% block content %}
-<h1>Hello, {{nom}}, nous sommes {{jour_semaine}} {{jour}}/{{mois}}/{{annee}} </h1>
-{% endblock %}
+<h1>Hello, {{ nom }}, nous sommes {{ jour_semaine }} {{ jour }}/{{ mois }}/{{ annee }} </h1>
+{% endblock content %}

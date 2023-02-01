@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, abort, jsonify, url_for, request
+from flask import Flask, render_template, redirect, abort, jsonify, url_for, request, send_from_directory
 from flask_bootstrap import Bootstrap
 from models.utilisateur import Utilisateur, db
 from models.quiz import Quiz, db
@@ -118,5 +118,9 @@ def quiz_delete(id):
     db.session.delete(quiz)
     db.session.commit()
     return redirect(url_for('quiz'))
+
+@app.route('/img/<path:path>')
+def send_img(path):
+    return send_from_directory('static/img', path)
 
 app.run()
