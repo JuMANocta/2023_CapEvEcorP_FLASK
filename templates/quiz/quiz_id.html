@@ -1,0 +1,40 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+    Quiz {{ quiz.question }}
+{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ quiz.question }}</h1>
+                <form action="" method="post">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="choice" value="A"/>
+                                {{ quiz.reponse_1 }}
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="choice" value="B"/>
+                                {{ quiz.reponse_2 }}
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="choice" value="C"/>
+                                {{ quiz.reponse_3 }}
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="choice" value="D"/>
+                                {{ quiz.reponse_4 }}
+                            </label>
+                        </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

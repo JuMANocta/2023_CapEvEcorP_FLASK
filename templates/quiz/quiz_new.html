@@ -1,0 +1,35 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+    Nouveau Quiz
+{% endblock title %}
+{% block content %}
+    <form action="" method="post">
+        <table class="table table-striped">
+            <tr>
+                <td>{{ form.question.label }}</td>
+                <td>{{ form.question(style="width:300px") }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.reponse_1.label }}</td>
+                <td>{{ form.reponse_1(style="width:300px") }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.reponse_2.label }}</td>
+                <td>{{ form.reponse_2(style="width:300px") }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.reponse_3.label }}</td>
+                <td>{{ form.reponse_3(style="width:300px") }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.reponse_4.label }}</td>
+                <td>{{ form.reponse_4(style="width:300px") }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.correct_reponse.label }}</td>
+                <td>{{ form.correct_reponse(style="width:300px") }}</td>
+            </tr>
+        </table>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+{% endblock content %}

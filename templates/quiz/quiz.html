@@ -2,6 +2,7 @@
 {% block title %}Liste des Quizs{% endblock title %}
 {% block content %}
     <h1>Liste des Quizs</h1>
+    <a href="{{ url_for('quiz_new') }}" class="btn btn-primary">Créer un nouveau quiz</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -24,13 +25,12 @@
                     <td>{{ quizzes.reponse_4 }}</td>
                     <td>{{ quizzes.correct_reponse }}</td>
                     <td>
-                        <a href="" class="btn btn-primary">Voir</a>
-                        <a href="" class="btn btn-primary">Modifier</a>
-                        <a href="" class="btn btn-danger">Supprimer</a>
+                        <a href="{{ url_for('quiz_id', id=quizzes.id) }}" class="btn btn-primary">Voir</a>
+                        <a href="{{ url_for('quiz_modif', id=quizzes.id) }}" class="btn btn-primary">Modifier</a>
+                        <a href="{{ url_for('quiz_delete', id=quizzes.id) }}" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ url_for('quiz_new') }}" class="btn btn-primary">Créer un nouveau quiz</a>
 {% endblock content %}

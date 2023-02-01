@@ -77,7 +77,7 @@ def html_utilisateurs():
 @app.route('/quiz')
 def quiz():
     quiz = Quiz.query.all()
-    return render_template('quiz.html', quiz=quiz)
+    return render_template('quiz/quiz.html', quiz=quiz)
 
 @app.route('/quiz_new', methods=['GET', 'POST'])
 def quiz_new():
@@ -85,9 +85,38 @@ def quiz_new():
     if request.method == 'POST':
         quiz = Quiz()
         form.populate_obj(quiz)
-        db.session.add(quiz) # Ajout de l'objet dans la session
+        db.session.add(quiz) # Ajout de l'objet dans la session de la base de données
         db.session.commit()
         return redirect(url_for('quiz'))
-    return render_template('quiz_new.html', form=form)
+    return render_template('quiz/quiz_new.html', form=form)
+
+@app.route('/quiz/<int:id>', methods=['GET', 'POST'])
+def quiz_id(id):
+    quiz = Quiz.query.get(id)
+    if request.method == 'POST':
+        reponse = request.form['choice']
+        print(quiz.correct_reponse, request.form['choice'])
+        if reponse == quiz.correct_reponse:
+            return render_template('quiz/quiz_win.html')
+        else:
+            return render_template('quiz/quiz_lose.html')
+    return render_template('quiz/quiz_id.html',quiz=quiz)
+
+@app.route('/quiz_modif/<int:id>', methods=['GET', 'POST'])
+def quiz_modif(id):
+    quiz = Quiz.query.get(id)
+    form = QuizNewForm(obj=quiz)
+    if request.method == 'POST':
+        form.populate_obj(quiz)
+        db.session.commit()
+        return redirect(url_for('quiz'))
+    return render_template('quiz/quiz_modif.html', form=form)
+
+@app.route('/quiz_delete/<int:id>', methods=['GET', 'POST'])
+def quiz_delete(id):
+    quiz = Quiz.query.get(id)
+    db.session.delete(quiz)
+    db.session.commit()
+    return redirect(url_for('quiz'))
 
 app.run()
