@@ -14,3 +14,5 @@ source bin/activate
 pip install -r requirements.txt
 python app.py
 ```
+
+TODO erreur pour les utilisateurs
