@@ -1,16 +1,19 @@
 from flask import Flask, render_template, redirect, abort, jsonify, url_for, request, send_from_directory
 from flask_bootstrap import Bootstrap
-from models.utilisateur import Utilisateur, db
-from models.quiz import Quiz, db
+from models.utilisateur import Utilisateur, db_utilisateur
+from models.quiz import Quiz, db_quiz
 from models.quiz_new_form import QuizNewForm
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.config.from_pyfile('config.py')
 
 Bootstrap(app)
-db.init_app(app)
+db_utilisateur.init_app(app)
+db_quiz.init_app(app)
+
 with app.app_context():
-    db.create_all()
+    db_utilisateur.create_all()
+    db_quiz.create_all()
 
 @app.route('/')
 def index():
@@ -52,11 +55,11 @@ def json():
     data = {'key': 'value', 'key2': 'value2', 'key3': 'value3'}
     return jsonify(data)
 
-@app.route('/setutilisateur/<nom>/<mot_de_passe>')
-def utilisateur(nom, mot_de_passe):
-    utilisateur = Utilisateur(nom=nom, mot_de_passe=mot_de_passe)
-    db.session.add(utilisateur)
-    db.session.commit()
+@app.route('/setutilisateur/<nom>/<mot_de_passe>/<role>')
+def utilisateur(nom, mot_de_passe, role):
+    utilisateur = Utilisateur(nom=nom, mot_de_passe=mot_de_passe, role=role)
+    db_utilisateur.session.add(utilisateur)
+    db_utilisateur.session.commit()
     return 'Utilisateur ajouté'
 
 @app.route('/getutilisateur/<id>')
@@ -67,7 +70,7 @@ def get_utilisateur(id):
 @app.route('/getallutilisateurs')
 def get_all_utilisateurs():
     utilisateurs = Utilisateur.query.all()
-    return f'Utilisateurs {utilisateurs}'
+    return f'Utilisateurs {[(utilisateur.nom, utilisateur.mot_de_passe, utilisateur.role) for utilisateur in utilisateurs]}'
 
 @app.route('/htmlutilisateurs')
 def html_utilisateurs():
@@ -85,8 +88,8 @@ def quiz_new():
     if request.method == 'POST':
         quiz = Quiz()
         form.populate_obj(quiz)
-        db.session.add(quiz) # Ajout de l'objet dans la session de la base de données
-        db.session.commit()
+        db_quiz.session.add(quiz) # Ajout de l'objet dans la session de la base de données
+        db_quiz.session.commit()
         return redirect(url_for('quiz'))
     return render_template('quiz/quiz_new.html', form=form)
 
@@ -108,19 +111,20 @@ def quiz_modif(id):
     form = QuizNewForm(obj=quiz)
     if request.method == 'POST':
         form.populate_obj(quiz)
-        db.session.commit()
+        db_quiz.session.commit()
         return redirect(url_for('quiz'))
     return render_template('quiz/quiz_modif.html', form=form)
 
 @app.route('/quiz_delete/<int:id>', methods=['GET', 'POST'])
 def quiz_delete(id):
     quiz = Quiz.query.get(id)
-    db.session.delete(quiz)
-    db.session.commit()
+    db_quiz.session.delete(quiz)
+    db_quiz.session.commit()
     return redirect(url_for('quiz'))
 
-@app.route('/img/<path:path>')
-def send_img(path):
-    return send_from_directory('static/img', path)
+# @app.route('/img/<path:path>')
+# def send_img(path):
+#     return send_from_directory('static/img', path)
 
-app.run()
+if __name__ == '__main__':
+    app.run()

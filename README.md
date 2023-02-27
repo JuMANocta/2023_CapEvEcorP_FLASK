@@ -11,8 +11,7 @@ git clone http://leprojetgit
 Scripts/activate.ps1
 # pour les autres OS
 source bin/activate
+
 pip install -r requirements.txt
 python app.py
 ```
-
-TODO erreur pour les utilisateurs

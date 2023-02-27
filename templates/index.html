@@ -5,5 +5,5 @@
 {% block content %}
 <h1>Hello World</h1>
 <p>Voici le contenu de la page index</p>
-<img src="{{ url_for('send_img', path='licorne.jpg') }}" alt="Licorne" class="img-thumbnail"/>
+<img src="{{ url_for('static', filename='img/licorne.jpg') }}" alt="Licorne" class="img-thumbnail img-responsive center-block"/>
 {% endblock content %}
