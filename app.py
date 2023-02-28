@@ -150,7 +150,7 @@ def connexion():
 
     return render_template('connexion/connexion.html', form=form)
 
-@app.route('/deconnexion')
+@app.route('/deco')
 def deconnexion():
     logout_user()
     return redirect(url_for('index'))
