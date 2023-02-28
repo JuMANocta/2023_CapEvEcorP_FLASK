@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 {% block html_attribs %} lang="fr"{% endblock html_attribs %}
-{% block title %}Liste des utilisateurs{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock title %}
 
 {% block content %}
 <h1>Liste des utilisateurs</h1>
@@ -10,6 +10,7 @@
             <th>ID</th>
             <th>Nom d'utilisateur</th>
             <th>Mot de passe</th>
+            <th>E-mail</th>
             <th>Role</th>
         </tr>
     </thead>
@@ -19,9 +20,10 @@
             <td>{{ utilisateur.id }}</td>
             <td>{{ utilisateur.nom }}</td>
             <td>{{ utilisateur.mot_de_passe }}</td>
+            <td>{{ utilisateur.email }}</td>
             <td>{{ utilisateur.role }}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-{% endblock %}
+{% endblock content %}
