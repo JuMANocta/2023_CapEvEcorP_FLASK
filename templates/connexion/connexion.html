@@ -7,17 +7,17 @@
 {% endblock title %}
 {% block content %}
     <div class="container" style="max-width: 60%">
-            <h1 class="mb-4 text-center">Connexion</h1>
-            <form method="post" action="{{ url_for('connexion') }}" class="form-signin mx-auto w-70">
-                {{ form.hidden_tag() }}
-                <label for="{{ form.login.id }}">Login</label>
-                {{ form.login(class="form-control", placeholder="Entrez votre login") }}
-                <label for="{{ form.mot_de_passe.id }}">Mot de passe</label>
-                {{ form.mot_de_passe(class="form-control", placeholder="Entrez votre mot de passe") }}
-                <div class="checkbox mb-3">
-                    <label>{{ form.remember_me() }} Se souvenir de moi</label>
-                </div>
-                {{ form.submit(class="btn btn-lg btn-primary btn-block", type="submit") }}
+        <h1 class="mb-4 text-center">Connexion ou <a href="{{url_for('nouvelutilisateur')}}">créer un compte</a></h1>
+        <form method="post" action="{{ url_for('connexion') }}" class="form-signin mx-auto w-70">
+            {{ form.hidden_tag() }}
+            <label for="{{ form.login.id }}">Login</label>
+            {{ form.login(class="form-control", placeholder="Entrez votre login") }}
+            <label for="{{ form.mot_de_passe.id }}">Mot de passe</label>
+            {{ form.mot_de_passe(class="form-control", placeholder="Entrez votre mot de passe") }}
+            <div class="checkbox mb-3">
+                <label>{{ form.remember_me() }} Se souvenir de moi</label>
+            </div>
+            {{ form.submit(class="btn btn-lg btn-primary btn-block", type="submit") }}
             </form>
     </div>
 {% endblock content %}

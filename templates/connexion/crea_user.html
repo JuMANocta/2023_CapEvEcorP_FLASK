@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+{% block html_attribs %}
+    lang="fr"
+{% endblock html_attribs %}
+{% block title %}
+    Nouvelle Connexion
+{% endblock title %}
+{% block content %}
+    <div class="container" style="max-width: 60%">
+        <h1 class="mb-4 text-center">Créer un nouvel utilisateur</h1>
+        <form method="post" action="{{ url_for('nouvelutilisateur') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">{{ form.login.label }} {{ form.login(class="form-control") }}</div>
+            <div class="form-group">{{ form.email.label }} {{ form.email(class="form-control") }}</div>
+            <div class="form-group">{{ form.mot_de_passe.label }} {{ form.mot_de_passe(class="form-control") }}</div>
+            <div class="form-group">
+            {{ form.confirmation_mot_de_passe.label }} {{ form.confirmation_mot_de_passe(class="form-control") }}
+            </div>
+            <div class="form-group">{{ form.role.label }} {{ form.role(class="form-control") }}</div>
+            {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+        </form>
+    </div>
+{% endblock content %}
