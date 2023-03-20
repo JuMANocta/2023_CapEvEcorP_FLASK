@@ -14,8 +14,8 @@ class Utilisateur(UserMixin, db_utilisateur.Model):
     def check_password(self, password):
         return check_password_hash(self.mot_de_passe, password)
     
-    def set_password(self, mot_de_passe):
-        self.mot_de_passe = generate_password_hash(mot_de_passe)
+    def genPassHash(mot_de_passe):
+        return generate_password_hash(mot_de_passe)
     
     # récupérer l'utilisateur par son id
     def get_user_by_id(id):

@@ -153,7 +153,7 @@ def deconnexion():
 def nouvelutilisateur():
     form = NouvelUtilisateurForm()
     if form.validate_on_submit():
-        mot_de_passe_hash = Utilisateur.set_password(form.mot_de_passe.data)
+        mot_de_passe_hash = Utilisateur.genPassHash(form.mot_de_passe.data)
         utilisateur = Utilisateur(
             nom=form.login.data, mot_de_passe=mot_de_passe_hash, email=form.email.data, role=form.role.data)
         db_utilisateur.session.add(utilisateur)
